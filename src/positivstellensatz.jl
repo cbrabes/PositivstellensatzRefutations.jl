@@ -228,29 +228,3 @@ function test_diagonal_dominance(A::AbstractMatrix)
     A = BigFloat.(A)
     return all(sum(abs,A;dims=2) .< 2abs.(diag(A)))
 end
-
-#=
-@polyvar x[1:3] monomial_order = Graded{Reverse{LexOrder}}
-g1 = 1.0 - x[3]^2 - (x[1] + 4)^2 - (x[2])^2 
-example_h = [(x[2]^2) + (0.0),]
-g2 = 1.0 - x[3]^2 - (x[1] - 4)^2 - (x[2])^2
-g3 = (1.0+x[1]^2+x[2]^2+x[3]^2)
-example_gs = [g1,g2,g3 ]
-certificate = pos_refutation(4, x, example_gs)
-calc_certificate_residual(certificate)
-=#
-#=
-(model, P0, Ps, Vs, ineq_vals, eq_vals, c0, c,lc)= create_pos_sos_dual_problem(8,x, example_gs, example_h)
-optimize!(model)
-r = -1 .- (Vs[1]*dual(lc[1])).*eq_vals[1,:] .-(dual(c0) .+ dual(c[1]).*ineq_vals[1, :] .+ dual(c[2]).*ineq_vals[2, :].+ dual(c[3]).*ineq_vals[3, :]    ) 
-
-(Ls, D0, eq_coeffs) = extract_integer_matrix_reps(c0, c, P0, Ps, dual.(lc),8,x)
-int_gs= [polynomial(g, BigInt) for g in example_gs]
-int_hs = [polynomial(h, BigInt) for h in example_h]
-(residual, residual_mat, constant_term) = calc_integer_polynomial_residual(Ls, D0, eq_coeffs, 4, x, int_gs, int_hs)
-D = Symmetric(rationalize.(BigInt, D0) + residual_mat)
-
-mono_basis = [polynomial(p, BigInt) for p in maxdegree_basis(MonomialBasis,x,8)]
-
-typeof(adjoint.(Ls))
-=#
