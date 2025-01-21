@@ -1,0 +1,13 @@
+name = "PositivstellensatzRefutations"
+uuid = "2d703308-6688-4b72-b8b6-809f8e2aca08"
+authors = ["Cole Brabec <cbrabec@mit.edu>"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1.11"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
