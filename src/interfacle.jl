@@ -2,6 +2,7 @@ using DynamicPolynomials
 using MultivariatePolynomials
 using DelimitedFiles
 include("positivstellensatz.jl")
+
 function build_polynomial(coeffs::AbstractVector, basis::MonomialVector)
     return  polynomial(coeffs, basis[1:length(coeffs)])
 end
@@ -25,7 +26,7 @@ function write_refutation_certificate(output_path::String, cert::pos_certificate
     if !isnothing(cert.equality_coefficients)
         path = joinpath(output_path, "equality_coefficients.txt")
         open(path, "w") do io
-            writedlm(io, zip(cert.equality_coefficients...))
+            writedlm(io, [ec for ec in cert.equality_coefficients])
         end
     end
     path = joinpath(output_path, "constant_term.txt")

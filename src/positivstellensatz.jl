@@ -28,7 +28,7 @@ function create_pos_sos_dual_problem(max_degree::Int, poly_vars::Vector{<:Variab
     box = Hypatia.PolyUtils.FreeDomain{Float64}(n_vars)
     #(U, pts, P0, V, w) = Hypatia.PolyUtils.interp_box(box, n_vars, cld(max_degree,2), true, false)
     (U, pts, P0, V) = fast_SOS_data(Float64, n_vars, cld(max_degree,2))
-    model = JuMP.Model(() -> Hypatia.Optimizer{Float64}(verbose = true, tol_slow = 1e-2, tol_rel_opt = 1e-13))
+    model = JuMP.Model(() -> Hypatia.Optimizer{Float64}(verbose = false, tol_slow = 1e-2, tol_rel_opt = 1e-13))
     @variable(model, y[1:U])
     c0 = @constraint(model, y in Hypatia.WSOSInterpNonnegativeCone{Float64, Float64}(U, P0, true))
     @objective(model, Min, -sum(y))
